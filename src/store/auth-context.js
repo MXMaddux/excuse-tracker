@@ -7,8 +7,13 @@ import {
 } from "firebase/auth";
 import { auth, googleProvider } from "../config/firebase";
 import { useNavigate } from "react-router-dom";
+import { ScenarioContext } from "./scenario-context";
 
 export const AuthContext = createContext();
+
+const scenarioCtx = createContext(ScenarioContext);
+
+const {getUserSpecificScenarios} = scenarioCtx;
 
 export const useAuth = () => {
   return useContext(AuthContext);
@@ -32,7 +37,7 @@ export const AuthProvider = ({ children }) => {
       await createUserWithEmailAndPassword(auth, email, password);
       setUser(auth.currentUser);
       localStorage.setItem('currentUser', JSON.stringify(auth.currentUser));
-      navigate("/scenarioform");
+      navigate("/scenarios");
     } catch (error) {
       setErrorMessage("Invalid. Please try again.");
       console.error(error);
@@ -44,6 +49,8 @@ export const AuthProvider = ({ children }) => {
       await signInWithEmailAndPassword(auth, signInEmail, signInPassword);
       setUser(auth.currentUser);
       localStorage.setItem('currentUser', JSON.stringify(auth.currentUser));
+      console.log("Auth Current User:  ", auth.currentUser)
+      getUserSpecificScenarios();
       navigate("/scenarios");
     } catch (error) {
       setErrorMessage("Invalid. Please try again.");
@@ -56,6 +63,8 @@ export const AuthProvider = ({ children }) => {
       await signInWithPopup(auth, googleProvider);
       setUser(auth.currentUser);
       localStorage.setItem('currentUser', JSON.stringify(auth.currentUser));
+      console.log("Auth Current User:  ", auth.currentUser)
+      getUserSpecificScenarios();
       navigate("/scenarios");
     } catch (error) {
       console.error(error);

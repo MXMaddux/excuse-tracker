@@ -160,7 +160,7 @@ const Wrapper = styled.section`
   .main {
     display: flex;
     flex-direction: column;
-    height: 100%;
+    height: 100vh;
     width: 100%;
     justify-content: space-around;
     align-items: center;
