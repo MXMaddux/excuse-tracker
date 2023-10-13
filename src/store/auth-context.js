@@ -35,6 +35,7 @@ export const AuthProvider = ({ children }) => {
       await createUserWithEmailAndPassword(auth, email, password);
       setUser(auth.currentUser);
       localStorage.setItem('currentUser', JSON.stringify(auth.currentUser));
+      console.log("Auth Current User line 38:  ", auth.currentUser)
       navigate("/scenarios");
     } catch (error) {
       setErrorMessage("Invalid. Please try again.");

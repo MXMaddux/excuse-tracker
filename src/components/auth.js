@@ -79,7 +79,7 @@ export const Auth = () => {
                 register()
               }}>
                 <input
-                  placeholder="Email..."
+                  placeholder="Email For Sign Up"
                   type="email"
                   onChange={(e) => setEmail(e.target.value)}
                 />
