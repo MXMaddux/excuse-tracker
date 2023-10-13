@@ -51,7 +51,9 @@ const ScenarioList = ({ onAddExcuse }) => {
         <button className="btn btn-search" type="submit"onClick={searchScenarios}>Search</button>
         </form>
       </div>
-        {scenariosList.map((scenario, index) => {
+      {scenariosList.length > 0 ? 
+      
+        scenariosList.map((scenario, index) => {
           return (
             <div className="container-scenario" key={index}>
               <div className="scenario">
@@ -96,7 +98,11 @@ const ScenarioList = ({ onAddExcuse }) => {
               />
             </div>
           );
-        })}
+        }) : <p>No scenarios added yet. Fill out the <span><a href="/scenarioform">form</a></span></p>
+        
+        
+        }
+       
       </div>
     </Wrapper>
   );
@@ -109,12 +115,19 @@ const Wrapper = styled.section`
   flex-direction: column;
   width: 100%;
   height: calc(100vh - 79 - 40);
-  /* height: 100%; */
-  padding: 3rem;
+  /* height: 100vh; */
+  padding-bottom: 3rem;
   overflow-y: scroll;
   justify-content: center;
   align-items: center;
-
+a {
+  color: var(--clr-primary-5);
+  font-weight: bold;
+}
+a:hover {
+  color: var(--clr-secondary-5);
+  transition: var(--transition);
+}
   .btn-delete-scenario {
     width: 160px;
     background-color: var(--clr-primary-3);
@@ -150,7 +163,7 @@ const Wrapper = styled.section`
     width: 80%;
     border-bottom: 3px solid var(--clr-secondary-2);
     justify-content: center;
-    padding: 0 40px;
+    padding: 0 20px;
   }
 
   h4 {
@@ -160,10 +173,12 @@ const Wrapper = styled.section`
   .main {
     display: flex;
     flex-direction: column;
-    height: 100vh;
+    height: 100%;
     width: 100%;
-    justify-content: space-around;
+    justify-content: center;
     align-items: center;
+    padding: 10px;
+    overflow-y: scroll;
   }
 
   .main-2 {
@@ -210,10 +225,9 @@ const Wrapper = styled.section`
   .search {
     display: flex;
     width: 80%;
-    margin: auto;
-    border-bottom: 3px solid var(--clr-primary-2);
+    /* margin: auto; */
     justify-content: center;
-    padding-bottom: 20px;
+    padding-bottom: 10px;
   }
 
   @media (max-width: 800px) {

@@ -11,9 +11,7 @@ import { ScenarioContext } from "./scenario-context";
 
 export const AuthContext = createContext();
 
-const scenarioCtx = createContext(ScenarioContext);
 
-const {getUserSpecificScenarios} = scenarioCtx;
 
 export const useAuth = () => {
   return useContext(AuthContext);
@@ -50,7 +48,6 @@ export const AuthProvider = ({ children }) => {
       setUser(auth.currentUser);
       localStorage.setItem('currentUser', JSON.stringify(auth.currentUser));
       console.log("Auth Current User:  ", auth.currentUser)
-      getUserSpecificScenarios();
       navigate("/scenarios");
     } catch (error) {
       setErrorMessage("Invalid. Please try again.");
@@ -64,7 +61,6 @@ export const AuthProvider = ({ children }) => {
       setUser(auth.currentUser);
       localStorage.setItem('currentUser', JSON.stringify(auth.currentUser));
       console.log("Auth Current User:  ", auth.currentUser)
-      getUserSpecificScenarios();
       navigate("/scenarios");
     } catch (error) {
       console.error(error);

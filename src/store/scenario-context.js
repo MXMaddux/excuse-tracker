@@ -1,5 +1,3 @@
-
-
 import "../../src/index.css";
 import { db } from "../config/firebase";
 import { useEffect, useState, createContext, useRef, useContext } from "react";
@@ -16,7 +14,6 @@ import { AuthContext } from "./auth-context";
 
 export const ScenarioContext = createContext();
 
-
 export const ScenarioProvider = ({ children }) => {
   const [scenariosList, setScenariosList] = useState([]);
   const [newScenario, setNewScenario] = useState("");
@@ -28,9 +25,9 @@ export const ScenarioProvider = ({ children }) => {
   const [updatedExcuses, setUpdatedExcuses] = useState([]);
   const [scenarios, setScenarios] = useState([]);
   const [isEditing, setIsEditing] = useState(false);
-const [editingScenarioId, setEditingScenarioId] = useState(null);
+  const [editingScenarioId, setEditingScenarioId] = useState(null);
 
-const navigate = useNavigate();
+  const navigate = useNavigate();
 
   const { user, setUser } = useContext(AuthContext);
 
@@ -38,18 +35,22 @@ const navigate = useNavigate();
     ? collection(db, `users/${user.uid}/scenarios`)
     : null;
 
-    const formRef = useRef();
+  const formRef = useRef();
 
   const getScenarioList = async () => {
-    try {
-      const data = await getDocs(scenariosCollectionRef);
-      const filteredData = data.docs.map((doc) => ({
-        ...doc.data(),
-        id: doc.id,
-      }));
-      setScenariosList(filteredData);
-    } catch (err) {
-      console.error(err);
+    if (user) {
+      try {
+        const data = await getDocs(scenariosCollectionRef);
+        console.log("DATA context line 45: ", data);
+        const filteredData = data.docs.map((doc) => ({
+          ...doc.data(),
+          id: doc.id,
+        }));
+        console.log("filtered DATA context line 51: ", filteredData);
+        setScenariosList(filteredData);
+      } catch (err) {
+        console.error(err);
+      }
     }
   };
 
@@ -88,13 +89,13 @@ const navigate = useNavigate();
       }
 
       const lowerCaseScenario = newScenario.toLowerCase();
-      
+
       await getUserSpecificScenarios();
 
       const existingScenario = scenariosList.find(
         (scenario) => scenario.scenario.toLowerCase() === lowerCaseScenario
       );
-      console.log("Existing Scenario: ", existingScenario)
+      console.log("Existing Scenario: ", existingScenario);
 
       if (existingScenario) {
         await addExcuseToScenario(existingScenario.id);
@@ -107,9 +108,9 @@ const navigate = useNavigate();
           scenario: newScenario,
           excuses: [
             {
-              excuseUsed:excuseUsed,
-              dateUsed:dateUsed,
-              givenTo:givenTo,
+              excuseUsed: excuseUsed,
+              dateUsed: dateUsed,
+              givenTo: givenTo,
             },
           ],
         });
@@ -123,7 +124,7 @@ const navigate = useNavigate();
       formRef.current.reset();
 
       getUserSpecificScenarios(); // Update the scenarios list for the current user
-      navigate("/scenarios") 
+      navigate("/scenarios");
     } catch (error) {
       console.error(error);
     }
@@ -200,13 +201,12 @@ const navigate = useNavigate();
         });
         getScenarioList();
 
-
         setNewScenario("");
         setExcuseUsed("");
         setDateUsed("");
         setGivenTo("");
 
-        navigate("/scenarios")
+        navigate("/scenarios");
       } else {
         console.error(`Scenario with ID ${scenarioId} not found`);
       }
@@ -214,14 +214,14 @@ const navigate = useNavigate();
       console.error(error);
     }
   };
-  
+
   const searchScenarios = (e) => {
     e.preventDefault();
-  
+
     const filteredScenarios = scenariosList.filter((scenario) =>
       scenario.scenario.toLowerCase().includes(searchTerm.toLowerCase())
     );
-  
+
     setScenariosList(filteredScenarios);
     setSearchTerm("");
   };
@@ -276,10 +276,10 @@ const navigate = useNavigate();
         updatedExcuses,
         setUpdatedExcuses,
         deleteScenario,
-        updateExcuse
+        updateExcuse,
       }}
     >
       {children}
     </ScenarioContext.Provider>
   );
-}
+};
