@@ -1,0 +1,135 @@
+{/* <Auth setUser={setUser} getUserSpecificScenarios={getUserSpecificScenarios} setScenariosList={setScenariosList} signInWithEmailAndPassword={signInWithEmailAndPassword}/>
+
+{user && (
+  <div>
+  <form onSubmit={onSubmitScenario}>
+    <input
+      type="text"
+      placeholder="Scenario"
+      onChange={(e) => setNewScenario(e.target.value)}
+      value={newScenario}
+    />
+    <input
+      type="text"
+      placeholder="Excuse Used"
+      onChange={(e) => setExcuseUsed(e.target.value)}
+      value={excuseUsed}
+    />
+    <input
+      type="date"
+      placeholder="Date Used"
+      onChange={(e) => setDateUsed(e.target.value)}
+      value={dateUsed}
+    />
+    <input
+      type="text"
+      placeholder="Given To"
+      onChange={(e) => setGivenTo(e.target.value)}
+      value={givenTo}
+    />
+    </form>
+    <button type="submit" onClick={onSubmitScenario}>
+      Submit
+    </button>
+  </div>
+)} */}
+{/* <div>
+<form onSubmit={searchScenarios}>
+  <input
+    type="text"
+    placeholder="Search Scenarios"
+    value={searchTerm}
+    onChange={(e) => setSearchTerm(e.target.value)}
+  />
+  <button type="submit"onClick={searchScenarios}>Search</button>
+  </form>
+  {scenariosList
+    .filter((scenario) =>
+      scenario.scenario.toLowerCase().includes(searchTerm.toLowerCase())
+    )
+    .map((scenario, index) => {
+      return (
+        <div className="scenario" key={index}>
+          <h1>{scenario.scenario}</h1>
+          <button onClick={() => deleteScenario(scenario.id)}>
+            Delete Scenario
+          </button>
+          <form
+            onSubmit={(e) => {
+              e.preventDefault();
+              updateScenario(scenario.id);
+            }}
+          >
+            <input
+              type="text"
+              placeholder="Edit Scenario"
+              onChange={(e) => setUpdatedScenario(e.target.value)}
+              value={updatedScenario}
+            />
+            <button type="submit">Update Scenario</button>
+          </form>
+          {scenario.excuses.map((excuse, idx) => (
+            <div key={idx}>
+              <p>Excuse Used: {excuse.excuseUsed}</p>
+              <p>Date Used: {excuse.dateUsed}</p>
+              <p>Given To: {excuse.givenTo}</p>
+              <form
+                onSubmit={(e) => {
+                  e.preventDefault();
+                  updateExcuse(scenario.id, idx, {
+                    excuseUsed: updatedExcuses[idx]?.excuseUsed || "",
+                    dateUsed: updatedExcuses[idx]?.dateUsed || scenario.excuses[idx].dateUsed,
+                    givenTo: updatedExcuses[idx]?.givenTo || scenario.excuses[idx].givenTo,
+                  });
+                  setUpdatedExcuses([]); // Reset the updated excuses array
+                }}
+              >
+                <input
+                  type="text"
+                  placeholder="Edit Excuse"
+                  value={updatedExcuses[idx]?.excuseUsed || ""}
+                  onChange={(e) => {
+                    const newUpdatedExcuses = [...updatedExcuses];
+                    newUpdatedExcuses[idx] = {
+                      ...newUpdatedExcuses[idx],
+                      excuseUsed: e.target.value,
+                    };
+                    setUpdatedExcuses(newUpdatedExcuses);
+                  }}
+                />
+                <input
+                  type="date"
+                  defaultValue={scenario.excuses[idx].dateUsed}
+                  onChange={(e) => {
+                    const newUpdatedExcuses = [...updatedExcuses];
+                    newUpdatedExcuses[idx] = {
+                      ...newUpdatedExcuses[idx],
+                      dateUsed: e.target.value,
+                    };
+                    setUpdatedExcuses(newUpdatedExcuses);
+                  }}
+                />
+                <input
+                  type="text"
+                  placeholder="Edit Given To"
+                  value={updatedExcuses[idx]?.givenTo || ""}
+                  onChange={(e) => {
+                    const newUpdatedExcuses = [...updatedExcuses];
+                    newUpdatedExcuses[idx] = {
+                      ...newUpdatedExcuses[idx],
+                      givenTo: e.target.value,
+                    };
+                    setUpdatedExcuses(newUpdatedExcuses);
+                  }}
+                />
+                <button type="submit">Edit Excuse</button>
+              </form>
+              <button onClick={() => deleteExcuse(scenario.id, idx)}>
+                Delete Excuse
+              </button>
+            </div>
+          ))}
+        </div>
+      );
+    })}
+</div> */}
