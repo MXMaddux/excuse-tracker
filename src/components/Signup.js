@@ -7,7 +7,7 @@ const Signup = () => {
   return (
     <div>
 
-    <Auth setUser={setUser} getUserSpecificScenarios={getUserSpecificScenarios} setScenariosList={setScenariosList} signInWithEmailAndPassword={signInWithEmailAndPassword} user={user} register={register}/>
+    <Auth setUser={setUser} getUserSpecificScenarios={getUserSpecificScenarios} setScenariosList={setScenariosList} signInWithEmailAndPassword={signInWithEmailAndPassword} user={user} />
 
       {/* {user && (
         <div>

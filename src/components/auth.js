@@ -79,12 +79,12 @@ export const Auth = () => {
                 register()
               }}>
                 <input
-                  placeholder="Email For Sign Up"
+                  placeholder="Email For Register"
                   type="email"
                   onChange={(e) => setEmail(e.target.value)}
                 />
                 <input
-                  placeholder="Password..."
+                  placeholder="Password for Register"
                   type="password"
                   onChange={(e) => setPassword(e.target.value)}
                 />

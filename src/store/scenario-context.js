@@ -26,6 +26,12 @@ export const ScenarioProvider = ({ children }) => {
   const [scenarios, setScenarios] = useState([]);
   const [isEditing, setIsEditing] = useState(false);
   const [editingScenarioId, setEditingScenarioId] = useState(null);
+  const [errors, setErrors] = useState({
+    scenario: "",
+    excuseUsed: "",
+    dateUsed: "",
+    givenTo: "",
+  });
 
   const navigate = useNavigate();
 
@@ -97,6 +103,30 @@ export const ScenarioProvider = ({ children }) => {
       );
       console.log("Existing Scenario: ", existingScenario);
 
+      // Form validation
+    const errors = {};
+    if (!newScenario.trim()) {
+      errors.scenario = "Scenario is required";
+    }
+    if (!excuseUsed.trim()) {
+      errors.excuseUsed = "Excuse Used is required";
+    }
+    if (!dateUsed) {
+      errors.dateUsed = "Date Used is required";
+    }
+    if (!givenTo.trim()) {
+      errors.givenTo = "Given To is required";
+    }
+
+    if (Object.keys(errors).length > 0) {
+      // Set the errors in state
+      setErrors(errors);
+      return;
+    }
+
+    // Reset errors state if there are no errors
+    setErrors({});
+
       if (existingScenario) {
         await addExcuseToScenario(existingScenario.id);
       } else {
@@ -121,10 +151,16 @@ export const ScenarioProvider = ({ children }) => {
       setDateUsed("");
       setGivenTo("");
 
+      console.log("formRef.current: ", formRef.current)
+
       formRef.current.reset();
 
-      getUserSpecificScenarios(); // Update the scenarios list for the current user
+      console.log("formRef.current after reset: ", formRef.current)
+
+      console.log("navigating to /scenarios")
       navigate("/scenarios");
+      
+      await getUserSpecificScenarios(); // Update the scenarios list for the current user
     } catch (error) {
       console.error(error);
     }
@@ -277,6 +313,9 @@ export const ScenarioProvider = ({ children }) => {
         setUpdatedExcuses,
         deleteScenario,
         updateExcuse,
+        errors,
+        setErrors,
+        formRef
       }}
     >
       {children}
