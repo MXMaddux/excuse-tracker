@@ -4,7 +4,7 @@ import { getFirestore } from "firebase/firestore";
 import { getStorage } from "firebase/storage";
 
 const firebaseConfig = {
-  apiKey: "AIzaSyAWKu6PcoihgsTxxBElYsSs25vLbvpTm5E",
+  apiKey: process.env.REACT_APP_FIREBASE_API_KEY,
   authDomain: "excuse-tracker-b5211.firebaseapp.com",
   projectId: "excuse-tracker-b5211",
   storageBucket: "excuse-tracker-b5211.appspot.com",
