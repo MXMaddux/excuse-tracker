@@ -12,7 +12,7 @@ const Hero = () => {
         </p>
         <br />
         <p>
-          Fill out the form Create a Scenario like "Late for work" or "No to
+          Fill out the form. Create a Scenario like "Late for work" or "No to
           camping". Then add the excuse you used, the date and to whom you told
           your excuse. <span>Excuse Tracker</span> keeps track of all your past
           BS.
