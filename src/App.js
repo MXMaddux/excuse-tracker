@@ -6,7 +6,8 @@ import { Routes, Route } from "react-router-dom";
 import Scenarios from "./pages/Scenarios";
 import Hero from "./components/Hero";
 import Footer from "./components/Footer";
-import Signup from "./components/Signup";
+import Register from "./components/Register";
+import SignIn from "./components/SignIn";
 import Form from "./pages/Form";
 
 function App() {
@@ -16,23 +17,22 @@ function App() {
     <div className="App">
       <Navbar />
       <Routes>
-        <Route path="scenarioform" element={<Form onFormSubmit={addExcuse} />} />
+        <Route
+          path="scenarioform"
+          element={<Form onFormSubmit={addExcuse} />}
+        />
         <Route
           path="scenarios"
           element={<Scenarios onAddExcuse={addExcuseToScenario} />}
         />
         <Route path="/" element={<Hero />} />
-        <Route path="signup" element={<Signup />} />
+        <Route path="register" element={<Register />} />
+        <Route path="signin" element={<SignIn />} />
         <Route path="scenarios" element={<Scenarios />} />
       </Routes>
       <Footer />
-
     </div>
   );
 }
 
 export default App;
-
-
-
-

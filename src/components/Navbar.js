@@ -27,15 +27,15 @@ const Navbar = () => {
             <p className="nav-links">Form</p>
           </NavbarLink>
           {!user && (
-            <NavbarLink to="/signup">
+            <NavbarLink to="/register">
               <p className="nav-links">Signup/Login</p>
             </NavbarLink>
           )}
-          {user && 
+          {user && (
             <NavbarLink to="/" onClick={logout}>
               <p className="nav-links">Logout</p>
             </NavbarLink>
-          }
+          )}
         </div>
       </div>
     </Wrapper>

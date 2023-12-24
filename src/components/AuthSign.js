@@ -2,7 +2,7 @@ import "../index.css";
 import { useAuth } from "../store/auth-context";
 import styled from "styled-components";
 
-export const Auth = () => {
+export const AuthSign = () => {
   const {
     register,
     signIn,
@@ -23,16 +23,7 @@ export const Auth = () => {
           <div className="container">
             <div className="sign-in">
               <h4>Sign In</h4>
-              <button
-                onClick={(e) => {
-                  e.preventDefault();
-                  console.log("Google Form submitted");
-                  signInWithGoogle();
-                }}
-                className="btn-google"
-              >
-                Sign In with Google
-              </button>
+
               <form
                 onSubmit={(e) => {
                   e.preventDefault();
@@ -68,64 +59,21 @@ export const Auth = () => {
                 >
                   Sign In
                 </button>
-              </form>
-            </div>
-
-            <div className="register">
-              <h4>Register</h4>
-              <form onSubmit={(e) => {
-                e.preventDefault()
-                console.log("User registered")
-                register()
-              }}>
-                <input
-                  placeholder="Email For Register"
-                  type="email"
-                  onChange={(e) => setEmail(e.target.value)}
-                />
-                <input
-                  placeholder="Password for Register"
-                  type="password"
-                  onChange={(e) => setPassword(e.target.value)}
-                />
-                <button type="submit"> Register </button>
+                <button
+                  onClick={(e) => {
+                    e.preventDefault();
+                    console.log("Google Form submitted");
+                    signInWithGoogle();
+                  }}
+                  className="btn-google"
+                >
+                  Sign In with Google
+                </button>
               </form>
             </div>
           </div>
         )}
-        {/* {user && (
-        <div>
-        <form onSubmit={onSubmitScenario}>
-          <input
-            type="text"
-            placeholder="Scenario"
-            onChange={(e) => setNewScenario(e.target.value)}
-            value={newScenario}
-          />
-          <input
-            type="text"
-            placeholder="Excuse Used"
-            onChange={(e) => setExcuseUsed(e.target.value)}
-            value={excuseUsed}
-          />
-          <input
-            type="date"
-            placeholder="Date Used"
-            onChange={(e) => setDateUsed(e.target.value)}
-            value={dateUsed}
-          />
-          <input
-            type="text"
-            placeholder="Given To"
-            onChange={(e) => setGivenTo(e.target.value)}
-            value={givenTo}
-          />
-          </form>
-          <button type="submit" onClick={onSubmitScenario}>
-            Submit
-          </button>
-        </div>
-      )} */}
+
         {user && <button onClick={logout}> Logout </button>}
       </div>
     </Wrapper>
@@ -165,8 +113,13 @@ const Wrapper = styled.section`
   }
 
   .btn-google {
-    background-color: var(--clr-primary-7);
-    margin-bottom: 10px;
+    background-color: var(--clr-secondary-5);
+    color: white;
+    font-weight: 400;
+  }
+
+  .btn-google:hover {
+    background-color: var(--clr-secondary-7);
   }
 
   .container {

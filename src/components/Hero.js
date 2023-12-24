@@ -50,6 +50,7 @@ const Wrapper = styled.section`
     display: flex;
     flex-direction: column;
     width: 70%;
+    max-width: 72ch;
     margin: auto;
     background-color: #fbfaf9;
     color: var(--clr-primary-3);
@@ -61,5 +62,12 @@ const Wrapper = styled.section`
     font-weight: bold;
     font-style: italic;
     color: var(--clr-primary-4);
+  }
+
+  @media screen and (max-width: 792px) {
+    .main {
+      width: 90%;
+      max-width: 72ch;
+    }
   }
 `;

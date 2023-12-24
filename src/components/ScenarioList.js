@@ -7,7 +7,6 @@ import { AuthContext } from "../store/auth-context";
 const ScenarioList = ({ onAddExcuse }) => {
   const {
     getScenarioList,
-    scenarios,
     scenariosList,
     deleteScenario,
     setEditingScenarioId,
@@ -15,10 +14,9 @@ const ScenarioList = ({ onAddExcuse }) => {
     setUpdatedScenario,
     editingScenarioId,
     updateScenario,
-    deleteExcuse,
     searchScenarios,
     setSearchTerm,
-    searchTerm
+    searchTerm,
   } = useContext(ScenarioContext);
 
   const { user } = useContext(AuthContext);
@@ -40,69 +38,83 @@ const ScenarioList = ({ onAddExcuse }) => {
   return (
     <Wrapper>
       <div className="main">
-      <div className="search">
-      <form onSubmit={searchScenarios}>
-        <input
-          type="text"
-          placeholder="Search Scenarios"
-          value={searchTerm}
-          onChange={(e) => setSearchTerm(e.target.value)}
-        />
-        <button className="btn btn-search" type="submit"onClick={searchScenarios}>Search</button>
-        </form>
-      </div>
-      {scenariosList.length > 0 ? 
-      
-        scenariosList.map((scenario, index) => {
-          return (
-            <div className="container-scenario" key={index}>
-              <div className="scenario">
-                <h4>Scenario: </h4>
-                <p className="p-scenario">
-                  <span>{scenario.scenario}</span>
-                </p>
-                <button
-                  className="btn btn-delete-scenario"
-                  onClick={() => deleteScenario(scenario.id)}
-                >
-                  Delete Scenario
-                </button>
-                <button onClick={() => {
-                  console.log(`Editing scenario with id of ${scenario.id}`)
-                  setEditingScenarioId(scenario.id);
-                }}></button>
-                <button  className="btn btn-edit-scenario" onClick={() => setEditingScenarioId(scenario.id)}>
-                  Edit Scenario
-                </button>
+        <div className="search">
+          <form onSubmit={searchScenarios}>
+            <input
+              type="text"
+              placeholder="Search Scenarios"
+              value={searchTerm}
+              onChange={(e) => setSearchTerm(e.target.value)}
+            />
+            <button
+              className="btn btn-search"
+              type="submit"
+              onClick={searchScenarios}
+            >
+              Search
+            </button>
+          </form>
+        </div>
+        {scenariosList.length > 0 ? (
+          scenariosList.map((scenario, index) => {
+            return (
+              <div className="container-scenario" key={index}>
+                <div className="scenario">
+                  <h4>Scenario: </h4>
+                  <p className="p-scenario">
+                    <span>{scenario.scenario}</span>
+                  </p>
+                  <button
+                    className="btn btn-delete-scenario"
+                    onClick={() => deleteScenario(scenario.id)}
+                  >
+                    Delete Scenario
+                  </button>
+                  <button
+                    onClick={() => {
+                      console.log(`Editing scenario with id of ${scenario.id}`);
+                      setEditingScenarioId(scenario.id);
+                    }}
+                  ></button>
+                  <button
+                    className="btn btn-edit-scenario"
+                    onClick={() => setEditingScenarioId(scenario.id)}
+                  >
+                    Edit Scenario
+                  </button>
+                </div>
+                {editingScenarioId === scenario.id && (
+                  <form
+                    onSubmit={(e) => {
+                      e.preventDefault();
+                      updateScenario(scenario.id, e);
+                    }}
+                  >
+                    {console.log("Scenario ID: ", scenario.id)}
+                    <input
+                      type="text"
+                      placeholder="Edit Scenario"
+                      value={updatedScenario}
+                      onChange={(e) => setUpdatedScenario(e.target.value)}
+                    />
+                    <button type="submit">Submit</button>
+                  </form>
+                )}
+                <ExcuseList
+                  scenario={scenario} // Pass the entire scenario object
+                  onAddExcuse={onAddExcuse}
+                />
               </div>
-              {editingScenarioId === scenario.id && (
-                <form
-                  onSubmit={(e) => {
-                    e.preventDefault();
-                    updateScenario(scenario.id, e);
-                  }}
-                >
-                  {console.log("Scenario ID: ", scenario.id)}
-                  <input
-                    type="text"
-                    placeholder="Edit Scenario"
-                    value={updatedScenario}
-                    onChange={(e) => setUpdatedScenario(e.target.value)}
-                  />
-                  <button type="submit">Submit</button>
-                </form>
-              )}
-              <ExcuseList
-                scenario={scenario} // Pass the entire scenario object
-                onAddExcuse={onAddExcuse}
-              />
-            </div>
-          );
-        }) : <p>No scenarios added yet. Fill out the <span><a href="/scenarioform">form</a></span></p>
-        
-        
-        }
-       
+            );
+          })
+        ) : (
+          <p>
+            No scenarios added yet. Fill out the{" "}
+            <span>
+              <a href="/scenarioform">form</a>
+            </span>
+          </p>
+        )}
       </div>
     </Wrapper>
   );
@@ -120,14 +132,14 @@ const Wrapper = styled.section`
   overflow-y: scroll;
   justify-content: center;
   align-items: center;
-a {
-  color: var(--clr-primary-5);
-  font-weight: bold;
-}
-a:hover {
-  color: var(--clr-secondary-5);
-  transition: var(--transition);
-}
+  a {
+    color: var(--clr-primary-5);
+    font-weight: bold;
+  }
+  a:hover {
+    color: var(--clr-secondary-5);
+    transition: var(--transition);
+  }
   .btn-delete-scenario {
     width: 160px;
     background-color: var(--clr-primary-3);
@@ -245,15 +257,15 @@ a:hover {
   }
 
   @media (max-width: 620px) {
-.search {
-  width: 100%;
-  padding-top: 10px;
-}
+    .search {
+      width: 100%;
+      padding-top: 10px;
+    }
 
-.p-scenario {
-    color: var(--clr-primary-7);
-    font-size: 16px;
-    text-transform: uppercase;
-  }
+    .p-scenario {
+      color: var(--clr-primary-7);
+      font-size: 16px;
+      text-transform: uppercase;
+    }
   }
 `;

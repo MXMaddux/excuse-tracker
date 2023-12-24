@@ -12,16 +12,15 @@ const UserForm = () => {
     setDateUsed,
     setGivenTo,
     errors,
-    formRef
+    formRef,
   } = useContext(ScenarioContext);
 
   const { user } = useContext(AuthContext);
 
-
   if (!user) {
     return (
       <Wrapper>
-        <div className="container">
+        <div className="container-no-user">
           <p>Please sign in or register first.</p>
         </div>
       </Wrapper>
@@ -31,7 +30,10 @@ const UserForm = () => {
   return (
     <Wrapper>
       <div className="container">
-        <p>Welcome, {user.email}</p>
+        <p>
+          Welcome,
+          <span className="span-welcome"> {user.email}</span>
+        </p>
         <form onSubmit={onSubmitScenario} name="scenario-form" ref={formRef}>
           <div className="sections">
             <label className="label">Scenario:</label>
@@ -41,7 +43,7 @@ const UserForm = () => {
               name="scenario"
             />
           </div>
-            <div className="error-message">{errors.scenario}</div>
+          <div className="error-message">{errors.scenario}</div>
           <div className="sections">
             <label>Excuse Used:</label>
             <input
@@ -50,7 +52,7 @@ const UserForm = () => {
               name="excuseUsed"
             />
           </div>
-            <div className="error-message">{errors.excuseUsed}</div>
+          <div className="error-message">{errors.excuseUsed}</div>
           <div className="sections">
             <label>Date Used:</label>
             <input
@@ -59,7 +61,7 @@ const UserForm = () => {
               name="dateUsed"
             />
           </div>
-            <div className="error-message">{errors.dateUsed}</div>
+          <div className="error-message">{errors.dateUsed}</div>
           <div className="sections">
             <label>Given To:</label>
             <input
@@ -68,7 +70,7 @@ const UserForm = () => {
               name="givenTo"
             />
           </div>
-            <div className="error-message">{errors.givenTo}</div>
+          <div className="error-message">{errors.givenTo}</div>
           <button className="btn btn-submit" type="submit">
             Submit
           </button>
@@ -84,7 +86,7 @@ const Wrapper = styled.section`
   display: flex;
   flex-direction: column;
   width: 100%;
-  height: 100vh;
+  height: calc(100vh - 129px);
   justify-content: center;
   align-items: center;
 
@@ -96,8 +98,18 @@ const Wrapper = styled.section`
   .container {
     display: flex;
     flex-direction: column;
-    justify-content: space-between;
+    justify-content: center;
     width: 330px;
+    height: 100%;
+  }
+
+  .container-no-user {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    width: 330px;
+    height: 100%;
   }
 
   .error-message {
@@ -109,9 +121,15 @@ const Wrapper = styled.section`
   }
 
   .sections {
-    width: 300px;
+    /* width: 300px; */
+    height: 20px;
     display: flex;
     justify-content: space-between;
-    padding: 20px 0;
+    margin-bottom: 0.5rem;
+  }
+
+  .span-welcome {
+    text-transform: uppercase;
+    color: var(--clr-secondary-4);
   }
 `;
