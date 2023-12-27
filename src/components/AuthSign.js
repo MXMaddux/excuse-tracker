@@ -23,7 +23,6 @@ export const AuthSign = () => {
           <div className="container">
             <div className="sign-in">
               <h4>Sign In</h4>
-
               <form
                 onSubmit={(e) => {
                   e.preventDefault();
@@ -70,6 +69,7 @@ export const AuthSign = () => {
                   Sign In with Google
                 </button>
               </form>
+              <p>Don't have an account?</p> <a href="/register">Register</a>
             </div>
           </div>
         )}
@@ -86,6 +86,16 @@ const Wrapper = styled.section`
     /* flex-direction: column; */
     justify-content: center;
     align-items: center;
+  }
+
+  a {
+    color: var(--clr-primary-3);
+    margin-top: -1rem;
+  }
+
+  a:hover {
+    color: var(--clr-secondary-5);
+    transition: var(--transition);
   }
 
   button {

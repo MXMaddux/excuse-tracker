@@ -48,6 +48,7 @@ const Wrapper = styled.div`
   width: 100%;
   height: 79px;
   background: var(--clr-white);
+  z-index: 3;
 
   h3 {
     color: var(--clr-primary-5);
@@ -68,40 +69,42 @@ const Wrapper = styled.div`
   .main {
     display: flex;
     width: 100%;
-    height: 100%;
+    /* height: 100%; */
+    height: 5rem;
     background-color: #fbfaf9;
     border-bottom: 1px solid var(--clr-primary-1);
     padding: 10px;
     justify-content: space-between;
     align-items: center;
-    z-index: 1;
   }
   .nav {
     display: flex;
     width: 50%;
     justify-content: space-evenly;
+    align-items: center;
+    margin-top: 1rem;
   }
   .slogan {
     font-size: 13px;
     color: var(--clr-secondary-4);
   }
-  @media (max-width: 800px) {
+  @media (max-width: 1092px) {
     .main {
       display: flex;
       flex-direction: column;
       margin: auto;
-      height: 129px;
+      height: 7rem;
       z-index: 1;
     }
     .logo {
       display: flex;
       margin: auto;
     }
-    /* .nav {
+    .nav {
       display: flex;
-      margin: auto;
+      margin-top: -1rem;
       justify-content: space-around;
-    } */
+    }
   }
 `;
 

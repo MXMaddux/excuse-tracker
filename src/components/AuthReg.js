@@ -47,12 +47,12 @@ export const AuthReg = () => {
               </form>
               <div className="already-registered">
                 Already registered?{" "}
-                <button
+                {/* <button
                   className="btn btn-register"
                   onClick={() => navigate("/signin")}
-                >
-                  Sign In
-                </button>
+                >Sign In
+                  </button> */}
+                <a href="/signin">Sign In</a>
               </div>
             </div>
           </div>
@@ -72,15 +72,16 @@ const Wrapper = styled.section`
   }
 
   a {
-    color: var(--clr-secondary-4);
+    color: var(--clr-primary-3);
   }
 
   a:hover {
-    color: var(--clr-secondary-6);
+    color: var(--clr-secondary-5);
   }
 
   .already-registered {
     display: flex;
+    flex-direction: column;
     justify-content: space-between;
     margin-top: 0.5rem;
   }

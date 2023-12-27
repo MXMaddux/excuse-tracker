@@ -3,6 +3,8 @@ import ExcuseList from "./ExcuseList"; // Import ExcuseList
 import styled from "styled-components";
 import { ScenarioContext } from "../store/scenario-context";
 import { AuthContext } from "../store/auth-context";
+import { FaSearch, FaTrashAlt, FaEdit } from "react-icons/fa";
+import { Link } from "react-router-dom";
 
 const ScenarioList = ({ onAddExcuse }) => {
   const {
@@ -46,13 +48,7 @@ const ScenarioList = ({ onAddExcuse }) => {
               value={searchTerm}
               onChange={(e) => setSearchTerm(e.target.value)}
             />
-            <button
-              className="btn btn-search"
-              type="submit"
-              onClick={searchScenarios}
-            >
-              Search
-            </button>
+            <FaSearch onClick={searchScenarios} className="fa-search" />
           </form>
         </div>
         {scenariosList.length > 0 ? (
@@ -60,28 +56,18 @@ const ScenarioList = ({ onAddExcuse }) => {
             return (
               <div className="container-scenario" key={index}>
                 <div className="scenario">
-                  <h4>Scenario: </h4>
+                  <p className="p">Scenario: </p>
                   <p className="p-scenario">
                     <span>{scenario.scenario}</span>
                   </p>
-                  <button
-                    className="btn btn-delete-scenario"
-                    onClick={() => deleteScenario(scenario.id)}
-                  >
-                    Delete Scenario
-                  </button>
-                  <button
-                    onClick={() => {
-                      console.log(`Editing scenario with id of ${scenario.id}`);
-                      setEditingScenarioId(scenario.id);
-                    }}
-                  ></button>
-                  <button
-                    className="btn btn-edit-scenario"
-                    onClick={() => setEditingScenarioId(scenario.id)}
-                  >
-                    Edit Scenario
-                  </button>
+                  <div className="button-div">
+                    <Link onClick={() => deleteScenario(scenario.id)}>
+                      <FaTrashAlt className="icon-trash" />
+                    </Link>
+                    <Link onClick={() => setEditingScenarioId(scenario.id)}>
+                      <FaEdit className="icon-edit" />
+                    </Link>
+                  </div>
                 </div>
                 {editingScenarioId === scenario.id && (
                   <form
@@ -108,12 +94,14 @@ const ScenarioList = ({ onAddExcuse }) => {
             );
           })
         ) : (
-          <p>
-            No scenarios added yet. Fill out the{" "}
-            <span>
-              <a href="/scenarioform">form</a>
-            </span>
-          </p>
+          <Wrapper>
+            <p>
+              No scenarios added yet. Fill out the{" "}
+              <span>
+                <a href="/scenarioform">form</a>
+              </span>
+            </p>
+          </Wrapper>
         )}
       </div>
     </Wrapper>
@@ -126,12 +114,11 @@ const Wrapper = styled.section`
   display: flex;
   flex-direction: column;
   width: 100%;
-  height: calc(100vh - 79 - 40);
-  /* height: 100vh; */
-  padding-bottom: 3rem;
-  overflow-y: scroll;
+  height: 100%;
+  overflow-y: auto;
   justify-content: center;
   align-items: center;
+
   a {
     color: var(--clr-primary-5);
     font-weight: bold;
@@ -140,47 +127,64 @@ const Wrapper = styled.section`
     color: var(--clr-secondary-5);
     transition: var(--transition);
   }
-  .btn-delete-scenario {
-    width: 160px;
-    background-color: var(--clr-primary-3);
-    margin-bottom: 5px;
-  }
-
-  .btn-delete-scenario:hover {
-    background-color: var(--clr-primary-5);
-    transition: var(--transition);
-  }
-  .btn-edit-scenario {
-    width: 160px;
-    background-color: var(--clr-primary-2);
-  }
-
-  .btn-edit-scenario:hover {
-    background-color: var(--clr-secondary-3);
-    transition: var(--transition);
-  }
-
-  .btn-search {
-    width: 160px;
-    margin-left: 20px;
-  }
-
-  .btn-search:hover {
-    background-color: var(--clr-secondary-5);
-    transition: var(--transition);
-  }
 
   .container-scenario {
     display: flex;
-    width: 80%;
+    flex-direction: column;
+    width: 90%;
+    height: 100%;
     border-bottom: 3px solid var(--clr-secondary-2);
+    justify-content: space-between;
+  }
+
+  .fa-search {
+    color: var(--clr-primary-4);
+    border: 2px solid black;
+    border-left: none;
+    height: 1.5rem;
+    width: 1.5rem;
+    background-color: white;
+  }
+
+  .fa-search:hover {
+    cursor: pointer;
+    color: var(--clr-secondary-4);
+  }
+
+  form {
+    display: flex;
     justify-content: center;
-    padding: 0 20px;
+    align-items: center;
   }
 
   h4 {
     color: var(--clr-primary-3);
     text-decoration: 3px underline var(--clr-secondary-4);
+  }
+
+  .icon-edit {
+    color: var(--clr-secondary-4);
+    font-size: large;
+  }
+
+  .icon-edit:hover {
+    color: var(--clr-secondary-5);
+  }
+
+  .icon-trash {
+    margin-right: 0.5rem;
+    color: var(--clr-primary-4);
+    font-size: large;
+  }
+
+  .icon-trash:hover {
+    color: var(--clr-primary-5);
+  }
+
+  input {
+    height: 24px;
+    padding: 2px;
+    border-right: none;
   }
   .main {
     display: flex;
@@ -190,15 +194,14 @@ const Wrapper = styled.section`
     justify-content: center;
     align-items: center;
     padding: 10px;
-    overflow-y: scroll;
   }
 
   .main-2 {
     display: flex;
     justify-content: center;
     align-items: center;
-    width: 80%;
-    height: 100vh;
+    width: 100%;
+    height: calc(100vh - 129px);
   }
 
   .main-2 p {
@@ -213,41 +216,55 @@ const Wrapper = styled.section`
     align-items: center;
   }
 
+  .p {
+    font-size: 1rem;
+    font-weight: 700;
+    color: var(--clr-secondary-5);
+    text-transform: uppercase;
+    text-decoration: underline;
+    margin-top: 0.85rem;
+  }
+
   .p-scenario {
     color: var(--clr-primary-7);
-    font-size: 16px;
-    font-weight: bold;
-    text-transform: uppercase;
+    font-size: 1rem;
+    font-weight: 400;
+    text-transform: capitalize;
+    margin-top: 0.85rem;
   }
 
   .scenario {
     display: flex;
-    flex-direction: column;
     align-items: center;
-    /* gap: 40px; */
-    width: 50%;
-    margin: 0 auto;
-    padding: 20px 40px 40px 40px;
+    justify-content: space-between;
+    width: 100%;
+    height: 2rem;
+    max-width: 1192px;
     color: var(--clr-primary-4);
+    padding: 0 0.75rem;
+
+    background-color: var(--clr-grey-10);
   }
   .scenario span {
-    color: var(--clr-secondary-4);
+    color: var(--clr-primary-3);
   }
 
   .search {
     display: flex;
     width: 80%;
+    height: 100%;
     /* margin: auto; */
     justify-content: center;
     padding-bottom: 10px;
   }
 
-  @media (max-width: 800px) {
+  @media (max-width: 1092px) {
     .main {
-      max-height: calc(100% - 139px - 40px);
+      max-height: calc(100% - 7rem - 40px);
       display: flex;
       justify-content: center;
       align-items: center;
+      margin-top: 1rem;
     }
   }
   @media (max-width: 400px) {
