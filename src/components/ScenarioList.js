@@ -95,12 +95,14 @@ const ScenarioList = ({ onAddExcuse }) => {
           })
         ) : (
           <Wrapper>
-            <p>
-              No scenarios added yet. Fill out the{" "}
-              <span>
-                <a href="/scenarioform">form</a>
-              </span>
-            </p>
+            <div className="main">
+              <p>
+                No scenarios added yet. Fill out the{" "}
+                <span>
+                  <a href="/scenarioform">form</a>
+                </span>
+              </p>
+            </div>
           </Wrapper>
         )}
       </div>
@@ -131,9 +133,9 @@ const Wrapper = styled.section`
   .container-scenario {
     display: flex;
     flex-direction: column;
-    width: 90%;
-    height: 100%;
-    border-bottom: 3px solid var(--clr-secondary-2);
+    width: 100%;
+    height: auto;
+    border-bottom: 1px ridge var(--clr-secondary-2);
     justify-content: space-between;
   }
 
@@ -189,9 +191,9 @@ const Wrapper = styled.section`
   .main {
     display: flex;
     flex-direction: column;
-    height: 100%;
+    height: calc(100vh - 120px);
     width: 100%;
-    justify-content: center;
+    justify-content: start;
     align-items: center;
     padding: 10px;
   }
@@ -201,7 +203,7 @@ const Wrapper = styled.section`
     justify-content: center;
     align-items: center;
     width: 100%;
-    height: calc(100vh - 129px);
+    height: calc(100vh - 120px);
   }
 
   .main-2 p {
@@ -226,7 +228,7 @@ const Wrapper = styled.section`
   }
 
   .p-scenario {
-    color: var(--clr-primary-7);
+    
     font-size: 1rem;
     font-weight: 400;
     text-transform: capitalize;
@@ -238,21 +240,21 @@ const Wrapper = styled.section`
     align-items: center;
     justify-content: space-between;
     width: 100%;
-    height: 2rem;
-    max-width: 1192px;
-    color: var(--clr-primary-4);
+    height: 100%;
+    color: var(--clr-primary-5);
     padding: 0 0.75rem;
-
     background-color: var(--clr-grey-10);
+    border-bottom: 1px solid var(--clr-grey-7);
   }
   .scenario span {
-    color: var(--clr-primary-3);
+    color: var(--clr-primary-4);
+    text-transform: capitalize;
   }
 
   .search {
     display: flex;
     width: 80%;
-    height: 100%;
+    height: auto;
     /* margin: auto; */
     justify-content: center;
     padding-bottom: 10px;
@@ -260,16 +262,15 @@ const Wrapper = styled.section`
 
   @media (max-width: 1092px) {
     .main {
-      max-height: calc(100% - 7rem - 40px);
+      max-height: calc(100vh - 160px);
       display: flex;
-      justify-content: center;
+      justify-content: start;
       align-items: center;
       margin-top: 1rem;
     }
-  }
-  @media (max-width: 400px) {
-    .main {
-      width: 100vw;
+    .scenario {
+      display: flex;
+      flex-direction: column;
     }
   }
 
@@ -279,10 +280,7 @@ const Wrapper = styled.section`
       padding-top: 10px;
     }
 
-    .p-scenario {
-      color: var(--clr-primary-7);
-      font-size: 16px;
-      text-transform: uppercase;
+   
     }
   }
 `;

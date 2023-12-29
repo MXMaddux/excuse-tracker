@@ -6,14 +6,14 @@ import { useAuth } from "../store/auth-context";
 const Navbar = () => {
   const { user, logout } = useAuth(); // Access user state
   return (
-    <Wrapper>
+    <Wrapper className="wrapper">
       <div className="main">
         {/* <div className="logo"> */}
         <a href="/">
           <h3>
             Excuse<span>Tracker</span>
           </h3>
-          <p className="slogan">Keep track of your BS.</p>
+          <p className="slogan">Keep track of your alibies.</p>
         </a>
         {/* </div> */}
         <div className="nav">
@@ -44,11 +44,11 @@ const Navbar = () => {
 
 export default Navbar;
 
-const Wrapper = styled.div`
+const Wrapper = styled.section`
   width: 100%;
-  height: 79px;
+  height: auto;
   background: var(--clr-white);
-  z-index: 3;
+  position: relative;
 
   h3 {
     color: var(--clr-primary-5);
@@ -69,11 +69,10 @@ const Wrapper = styled.div`
   .main {
     display: flex;
     width: 100%;
-    /* height: 100%; */
+    height: 100%;
     height: 5rem;
     background-color: #fbfaf9;
     border-bottom: 1px solid var(--clr-primary-1);
-    padding: 10px;
     justify-content: space-between;
     align-items: center;
   }
@@ -82,7 +81,7 @@ const Wrapper = styled.div`
     width: 50%;
     justify-content: space-evenly;
     align-items: center;
-    margin-top: 1rem;
+    padding-top: 16px;
   }
   .slogan {
     font-size: 13px;
@@ -93,9 +92,9 @@ const Wrapper = styled.div`
       display: flex;
       flex-direction: column;
       margin: auto;
-      height: 7rem;
-      z-index: 1;
+      height: 120px;
     }
+
     .logo {
       display: flex;
       margin: auto;

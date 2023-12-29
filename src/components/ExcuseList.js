@@ -23,7 +23,7 @@ const ExcuseList = ({ scenario }) => {
   }
 
   return (
-    <Wrapper className="jerk">
+    <Wrapper className="excuse-wrapper">
       <div className="container">
         <div className="title">
           <h5>Past Excuses:</h5>
@@ -42,12 +42,6 @@ const ExcuseList = ({ scenario }) => {
                 <p className="excuse-used">
                   Given To: <span>{excuse.givenTo}</span>
                 </p>
-                {/* <button
-                  className="btn btn-delete"
-                  onClick={() => deleteExcuse(scenario.id)}
-                >
-                  Delete Excuse
-                </button> */}
                 <Link
                   onClick={() => deleteExcuse(scenario.id)}
                   className="delete-link"
@@ -109,6 +103,7 @@ const Wrapper = styled.section`
     align-items: center;
     background-color: var(--clr-secondary-10);
     padding: 0 0.75rem;
+    border-bottom: 1px solid var(--clr-secondary-8);
   }
 
   .excuse-used {
@@ -124,11 +119,14 @@ const Wrapper = styled.section`
   }
 
   .excuses {
+    display: flex;
+    flex-direction: column;
+    height: 100%;
   }
 
   hr {
     height: 2px;
-    background-color: var(--clr-primary-4);
+    background-color: var(--clr-primary-1);
     border: none;
   }
 
@@ -143,8 +141,13 @@ const Wrapper = styled.section`
 
   .title {
     background-color: var(--clr-secondary-10);
+    padding-top: 5px;
   }
 
-  @media (max-width: 400px) {
+  @media (max-width: 1092px) {
+    .excuse {
+      display: flex;
+      flex-direction: column;
+    }
   }
 `;

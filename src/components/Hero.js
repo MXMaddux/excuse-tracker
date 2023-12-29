@@ -12,10 +12,10 @@ const Hero = () => {
         </p>
         <br />
         <p>
-          Fill out the form. Create a Scenario like "Late for work" or "No to
-          camping". Then add the excuse you used, the date and to whom you told
-          your excuse. <span>Excuse Tracker</span> keeps track of all your past
-          BS.
+          Fill out the <a href="/scenarioform">form</a>. Create a Scenario like
+          "Didn't respond to message" or "Can't go camping". Then add the excuse
+          you used, the date and to whom you told your excuse.{" "}
+          <span>Excuse Tracker</span> keeps track of all your past excuses.
         </p>
 
         <br />
@@ -60,8 +60,8 @@ const Wrapper = styled.section`
   }
   .main span {
     font-weight: bold;
-    font-style: italic;
-    color: var(--clr-primary-4);
+    color: var(--clr-secondary-4);
+    /* text-transform: uppercase; */
   }
 
   @media screen and (max-width: 792px) {

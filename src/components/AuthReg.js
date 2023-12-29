@@ -72,11 +72,12 @@ const Wrapper = styled.section`
   }
 
   a {
-    color: var(--clr-primary-3);
+    color: var(--clr-secondary-5);
   }
 
   a:hover {
-    color: var(--clr-secondary-5);
+    color: var(--clr-primary-5);
+    transition: var(--transition);
   }
 
   .already-registered {

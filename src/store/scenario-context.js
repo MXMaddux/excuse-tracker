@@ -104,28 +104,28 @@ export const ScenarioProvider = ({ children }) => {
       console.log("Existing Scenario: ", existingScenario);
 
       // Form validation
-    const errors = {};
-    if (!newScenario.trim()) {
-      errors.scenario = "Scenario is required";
-    }
-    if (!excuseUsed.trim()) {
-      errors.excuseUsed = "Excuse Used is required";
-    }
-    if (!dateUsed) {
-      errors.dateUsed = "Date Used is required";
-    }
-    if (!givenTo.trim()) {
-      errors.givenTo = "Given To is required";
-    }
+      const errors = {};
+      if (!newScenario.trim()) {
+        errors.scenario = "Scenario is required";
+      }
+      if (!excuseUsed.trim()) {
+        errors.excuseUsed = "Excuse Used is required";
+      }
+      if (!dateUsed) {
+        errors.dateUsed = "Date Used is required";
+      }
+      if (!givenTo.trim()) {
+        errors.givenTo = "Given To is required";
+      }
 
-    if (Object.keys(errors).length > 0) {
-      // Set the errors in state
-      setErrors(errors);
-      return;
-    }
+      if (Object.keys(errors).length > 0) {
+        // Set the errors in state
+        setErrors(errors);
+        return;
+      }
 
-    // Reset errors state if there are no errors
-    setErrors({});
+      // Reset errors state if there are no errors
+      setErrors({});
 
       if (existingScenario) {
         await addExcuseToScenario(existingScenario.id);
@@ -151,15 +151,15 @@ export const ScenarioProvider = ({ children }) => {
       setDateUsed("");
       setGivenTo("");
 
-      console.log("formRef.current: ", formRef.current)
+      console.log("formRef.current: ", formRef.current);
 
       formRef.current.reset();
 
-      console.log("formRef.current after reset: ", formRef.current)
+      console.log("formRef.current after reset: ", formRef.current);
 
-      console.log("navigating to /scenarios")
+      console.log("navigating to /scenarios");
       navigate("/scenarios");
-      
+
       await getUserSpecificScenarios(); // Update the scenarios list for the current user
     } catch (error) {
       console.error(error);
@@ -293,6 +293,7 @@ export const ScenarioProvider = ({ children }) => {
         addExcuseToScenario,
         getUserSpecificScenarios,
         searchScenarios,
+        setEditingScenarioId,
         user,
         setUser,
         scenariosList,
@@ -315,7 +316,7 @@ export const ScenarioProvider = ({ children }) => {
         updateExcuse,
         errors,
         setErrors,
-        formRef
+        formRef,
       }}
     >
       {children}
