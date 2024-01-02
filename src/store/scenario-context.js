@@ -25,6 +25,8 @@ export const ScenarioProvider = ({ children }) => {
   const [updatedExcuses, setUpdatedExcuses] = useState([]);
   const [scenarios, setScenarios] = useState([]);
   const [isEditing, setIsEditing] = useState(false);
+  const [editingExcuseId, setEditingExcuseId] = useState(null);
+
   const [editingScenarioId, setEditingScenarioId] = useState(null);
   const [errors, setErrors] = useState({
     scenario: "",
@@ -294,6 +296,7 @@ export const ScenarioProvider = ({ children }) => {
         getUserSpecificScenarios,
         searchScenarios,
         setEditingScenarioId,
+        editingScenarioId,
         user,
         setUser,
         scenariosList,
@@ -317,6 +320,10 @@ export const ScenarioProvider = ({ children }) => {
         errors,
         setErrors,
         formRef,
+        isEditing,
+        setIsEditing,
+        editingExcuseId,
+        setEditingExcuseId,
       }}
     >
       {children}

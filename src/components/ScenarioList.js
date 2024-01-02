@@ -27,6 +27,8 @@ const ScenarioList = ({ onAddExcuse }) => {
     getScenarioList();
   }, []);
 
+  const handleClick = () => {};
+
   if (!user) {
     return (
       <Wrapper>
@@ -61,12 +63,20 @@ const ScenarioList = ({ onAddExcuse }) => {
                     <span>{scenario.scenario}</span>
                   </p>
                   <div className="button-div">
-                    <Link onClick={() => deleteScenario(scenario.id)}>
+                    <div onClick={() => deleteScenario(scenario.id)}>
                       <FaTrashAlt className="icon-trash" />
-                    </Link>
-                    <Link onClick={() => setEditingScenarioId(scenario.id)}>
+                    </div>
+                    <div
+                      onClick={() => {
+                        console.log("Editing scenario ID: ", scenario.id);
+                        setEditingScenarioId(scenario.id);
+                        console.log(
+                          `Editing Scenario ID? ${editingScenarioId}`
+                        );
+                      }}
+                    >
                       <FaEdit className="icon-edit" />
-                    </Link>
+                    </div>
                   </div>
                 </div>
                 {editingScenarioId === scenario.id && (
@@ -128,6 +138,11 @@ const Wrapper = styled.section`
   a:hover {
     color: var(--clr-secondary-5);
     transition: var(--transition);
+    cursor: pointer;
+  }
+
+  .button-div {
+    display: flex;
   }
 
   .container-scenario {
@@ -171,6 +186,7 @@ const Wrapper = styled.section`
 
   .icon-edit:hover {
     color: var(--clr-secondary-5);
+    cursor: pointer;
   }
 
   .icon-trash {
@@ -181,6 +197,7 @@ const Wrapper = styled.section`
 
   .icon-trash:hover {
     color: var(--clr-primary-5);
+    cursor: pointer;
   }
 
   input {
@@ -244,7 +261,6 @@ const Wrapper = styled.section`
     color: var(--clr-primary-5);
     padding: 0 0.75rem;
     background-color: var(--clr-grey-10);
-    border-bottom: 1px solid var(--clr-grey-7);
   }
   .scenario span {
     color: var(--clr-primary-4);
