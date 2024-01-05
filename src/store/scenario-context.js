@@ -267,10 +267,12 @@ export const ScenarioProvider = ({ children }) => {
   const updateExcuse = async (scenarioId, excuseIndex, updatedExcuse) => {
     try {
       const scenario = scenariosList.find((s) => s.id === scenarioId);
+      console.log(`Scenario: ${scenario}`);
 
       if (scenario) {
         const updatedExcuses = [...scenario.excuses];
         updatedExcuses[excuseIndex] = updatedExcuse;
+        console.log(`Updated Excuse: ${updatedExcuse}`);
 
         await updateDoc(doc(scenariosCollectionRef, scenario.id), {
           excuses: updatedExcuses,

@@ -4,116 +4,141 @@ import { AuthContext } from "../store/auth-context";
 import { FaTrashAlt, FaEdit } from "react-icons/fa";
 import styled from "styled-components";
 
+// Main component for displaying the list of excuses
 const ExcuseList = ({ scenario }) => {
-  const {
-    deleteExcuse,
-    // ... other states from ScenarioContext ...
-  } = useContext(ScenarioContext);
-
-  const [currentEditingExcuse, setCurrentEditingExcuse] = useState(null);
-  const [editableExcuse, setEditableExcuse] = useState({
-    excuseUsed: "",
-    dateUsed: "",
-    givenTo: "",
-  });
+  const { deleteExcuse, updateExcuse } = useContext(ScenarioContext);
+  const [editingExcuseIndex, setEditingExcuseIndex] = useState(null);
+  const [excuseListIsEditing, setExcuseListIsEditing] = useState(false);
 
   const excuses = scenario?.excuses || [];
-
   const { user } = useContext(AuthContext);
 
   if (!user) {
-    return (
-      <Wrapper>
-        <div className="container-no-user">
-          <p>Please sign in or register first.</p>
-        </div>
-      </Wrapper>
-    );
+    return <p>Please sign in or register first.</p>;
   }
 
+  const handleEditClick = (index) => {
+    setEditingExcuseIndex(index);
+  };
+
+  const handleUpdateExcuse = (index, updatedExcuse) => {
+    updateExcuse(scenario.id, index, updatedExcuse);
+    setEditingExcuseIndex(null); // Reset editing index after update
+  };
+
   return (
-    <Wrapper className="excuse-wrapper">
-      <div className="container">
-        <div className="title">
-          <h5>Past Excuses:</h5>
-        </div>
-        <div className="excuses">
-          {excuses.length > 0 ? (
-            excuses.map((excuse, index) => (
-              <div className="excuse" key={index}>
-                {currentEditingExcuse &&
-                currentEditingExcuse.id === excuse.id ? (
-                  <div className="excuse-date-given">
-                    <input
-                      type="text"
-                      value={editableExcuse.excuseUsed}
-                      onChange={(e) =>
-                        setEditableExcuse({
-                          ...editableExcuse,
-                          excuseUsed: e.target.value,
-                        })
-                      }
-                    />
-                    <input
-                      type="text"
-                      value={editableExcuse.dateUsed}
-                      onChange={(e) =>
-                        setEditableExcuse({
-                          ...editableExcuse,
-                          dateUsed: e.target.value,
-                        })
-                      }
-                    />
-                    <input
-                      type="text"
-                      value={editableExcuse.givenTo}
-                      onChange={(e) =>
-                        setEditableExcuse({
-                          ...editableExcuse,
-                          givenTo: e.target.value,
-                        })
-                      }
-                    />
-                    {/* Add save and cancel buttons if needed */}
-                  </div>
-                ) : (
-                  <div className="excuse-date-given">
-                    <p className="excuse-used">
-                      Excuse Used: <span>{excuse.excuseUsed}</span>
-                    </p>
-                    <p className="date-used">
-                      Date Used: <span>{excuse.dateUsed}</span>
-                    </p>
-                    <p className="given-to">
-                      Given To: <span>{excuse.givenTo}</span>
-                    </p>
-                    <div className="icon-div">
-                      <div className="trash">
-                        <FaTrashAlt onClick={() => deleteExcuse(scenario.id)} />
-                      </div>
-                      <div className="edit">
-                        <FaEdit
-                          onClick={() => {
-                            setCurrentEditingExcuse(excuse);
-                            setEditableExcuse({
-                              excuseUsed: excuse.excuseUsed,
-                              dateUsed: excuse.dateUsed,
-                              givenTo: excuse.givenTo,
-                            });
-                          }}
-                        />
-                      </div>
-                    </div>
-                  </div>
-                )}
-              </div>
-            ))
-          ) : (
-            <p>No excuses available.</p>
-          )}
-        </div>
+    <Wrapper>
+      <div className="excuse-wrapper">
+        {excuses.length > 0 ? (
+          excuses.map((excuse, index) => (
+            <ExcuseItem
+              key={index}
+              excuse={excuse}
+              isEditing={editingExcuseIndex === index}
+              onEditClick={() => handleEditClick(index)}
+              onUpdateExcuse={(updatedExcuse) =>
+                handleUpdateExcuse(index, updatedExcuse)
+              }
+              onDeleteClick={() => deleteExcuse(scenario.id, index)}
+            />
+          ))
+        ) : (
+          <p>No excuses available.</p>
+        )}
       </div>
     </Wrapper>
+  );
+};
+
+// Component to render each individual excuse
+const ExcuseItem = ({
+  excuse,
+  isEditing,
+  onEditClick,
+  onUpdateExcuse,
+  onDeleteClick,
+}) => {
+  const [editableExcuse, setEditableExcuse] = useState({ ...excuse });
+
+  const handleUpdatedExcuseSubmit = (e) => {
+    e.preventDefault();
+    onUpdateExcuse(editableExcuse);
+  };
+
+  return (
+    // <Wrapper>
+    <div className="excuse">
+      {isEditing ? (
+        <form onSubmit={handleUpdatedExcuseSubmit}>
+          <div className="excuse-editable">
+            <div className="inputs">
+              <label>
+                <p>Excuse Used: </p>
+              </label>
+              <input
+                type="text"
+                value={editableExcuse.excuseUsed}
+                onChange={(e) =>
+                  setEditableExcuse({
+                    ...editableExcuse,
+                    excuseUsed: e.target.value,
+                  })
+                }
+              />
+            </div>
+            <div className="inputs">
+              <label>
+                <p>Date Used: </p>
+              </label>
+              <input
+                type="text"
+                value={editableExcuse.dateUsed}
+                onChange={(e) =>
+                  setEditableExcuse({
+                    ...editableExcuse,
+                    dateUsed: e.target.value,
+                  })
+                }
+              />
+            </div>
+            <div className="inputs">
+              <label>
+                <p>Given To: </p>
+              </label>
+              <input
+                type="text"
+                value={editableExcuse.givenTo}
+                onChange={(e) =>
+                  setEditableExcuse({
+                    ...editableExcuse,
+                    givenTo: e.target.value,
+                  })
+                }
+              />
+            </div>
+            {/* Similar inputs for dateUsed and givenTo */}
+            <button type="submit">Save</button>
+          </div>
+        </form>
+      ) : (
+        <div className="excuse-details">
+          <p>
+            Excuse Used: <span>{excuse.excuseUsed}</span>
+          </p>
+          <p>
+            Date Used: <span>{excuse.dateUsed}</span>
+          </p>
+          <p>
+            Given To: <span>{excuse.givenTo}</span>
+          </p>
+          <div className="icon-div">
+            <FaTrashAlt onClick={onDeleteClick} />
+            <FaEdit onClick={onEditClick} />
+          </div>
+        </div>
+      )}
+    </div>
+    // </Wrapper>
   );
 };
 
@@ -150,6 +175,13 @@ const Wrapper = styled.section`
     cursor: pointer;
   }
 
+  .excuse-wrapper {
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    align-items: start;
+  }
+
   .excuse-date-given {
     display: flex;
     flex-direction: column;
@@ -169,6 +201,9 @@ const Wrapper = styled.section`
     background-color: var(--clr-primary-10);
     padding: 0 0.75rem;
     border-bottom: 1px solid var(--clr-primary-6);
+    width: 100%;
+    align-items: start;
+    padding: 1rem 0.5rem;
   }
 
   .excuse-used,
@@ -210,6 +245,11 @@ const Wrapper = styled.section`
     background-color: var(--clr-white);
     border: 1px solid var(--clr-primary-4);
     margin-bottom: 0.5rem;
+  }
+
+  .inputs {
+    display: flex;
+    gap: 0.5rem;
   }
 
   p {
