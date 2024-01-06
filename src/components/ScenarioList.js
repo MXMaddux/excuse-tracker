@@ -58,9 +58,9 @@ const ScenarioList = ({ onAddExcuse }) => {
             return (
               <div className="container-scenario" key={index}>
                 <div className="scenario">
-                  <p className="p">Scenario: </p>
+                  <p className="p">Scenario {index + 1}: </p>
                   <p className="p-scenario">
-                    <span>{scenario.scenario}</span>
+                    <span className="span-scenario">{scenario.scenario}</span>
                   </p>
                   <div className="button-div">
                     <div onClick={() => deleteScenario(scenario.id)}>
@@ -240,8 +240,11 @@ const Wrapper = styled.section`
     font-weight: 700;
     color: var(--clr-secondary-5);
     text-transform: uppercase;
-    text-decoration: underline;
     margin-top: 0.85rem;
+  }
+
+  .span-scenario {
+    text-decoration: underline;
   }
 
   .p-scenario {

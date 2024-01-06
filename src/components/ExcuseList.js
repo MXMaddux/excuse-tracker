@@ -2,16 +2,22 @@ import React, { useContext, useState } from "react";
 import { ScenarioContext } from "../store/scenario-context";
 import { AuthContext } from "../store/auth-context";
 import { FaTrashAlt, FaEdit } from "react-icons/fa";
+import { MdOutlineSaveAlt, MdOutlineCancel } from "react-icons/md";
+
 import styled from "styled-components";
 
 // Main component for displaying the list of excuses
 const ExcuseList = ({ scenario }) => {
-  const { deleteExcuse, updateExcuse } = useContext(ScenarioContext);
+  const { deleteExcuse, updateExcuse, setIsEditing } =
+    useContext(ScenarioContext);
   const [editingExcuseIndex, setEditingExcuseIndex] = useState(null);
-  const [excuseListIsEditing, setExcuseListIsEditing] = useState(false);
 
   const excuses = scenario?.excuses || [];
   const { user } = useContext(AuthContext);
+
+  const handleCancel = () => {
+    setIsEditing(false);
+  };
 
   if (!user) {
     return <p>Please sign in or register first.</p>;
@@ -57,6 +63,7 @@ const ExcuseItem = ({
   onEditClick,
   onUpdateExcuse,
   onDeleteClick,
+  handleCancel,
 }) => {
   const [editableExcuse, setEditableExcuse] = useState({ ...excuse });
 
@@ -117,7 +124,17 @@ const ExcuseItem = ({
               />
             </div>
             {/* Similar inputs for dateUsed and givenTo */}
-            <button type="submit">Save</button>
+            <div className="button-div">
+              <button className="save-cancel-btn btn-save" type="submit">
+                <MdOutlineSaveAlt />
+              </button>
+              <button
+                className="save-cancel-btn btn-cancel"
+                onClick={handleCancel}
+              >
+                <MdOutlineCancel />
+              </button>
+            </div>
           </div>
         </form>
       ) : (
@@ -131,9 +148,13 @@ const ExcuseItem = ({
           <p>
             Given To: <span>{excuse.givenTo}</span>
           </p>
-          <div className="icon-div">
-            <FaTrashAlt onClick={onDeleteClick} />
-            <FaEdit onClick={onEditClick} />
+          <div className="trash-div">
+            <button className="trash-icon">
+              <FaTrashAlt onClick={onDeleteClick} />
+            </button>
+            <button className="save-icon">
+              <FaEdit onClick={onEditClick} />
+            </button>
           </div>
         </div>
       )}
@@ -147,6 +168,25 @@ export default ExcuseList;
 const Wrapper = styled.section`
   display: flex;
   width: 100%;
+
+  .btn-save {
+    margin-right: 0.5rem;
+    color: var(--clr-green-dark);
+  }
+
+  .btn-save:hover {
+    color: var(--clr-green-light);
+    cursor: pointer;
+  }
+
+  .btn-cancel {
+    color: var(--clr-secondary-5);
+  }
+
+  .btn-cancel:hover {
+    color: var(--clr-secondary-4);
+    cursor: pointer;
+  }
 
   .container {
     display: flex;
@@ -206,6 +246,11 @@ const Wrapper = styled.section`
     padding: 1rem 0.5rem;
   }
 
+  .excuse-details {
+    width: 60%;
+    text-align: center;
+  }
+
   .excuse-used,
   .date-used,
   .given-to {
@@ -261,6 +306,24 @@ const Wrapper = styled.section`
     margin-left: 5px;
   }
 
+  .save-cancel-btn {
+    border: none;
+    font-size: 1.25rem;
+    background-color: var(--clr-primary-10);
+  }
+
+  .save-icon {
+    border: none;
+    font-size: large;
+    color: var(--clr-secondary-4);
+    margin-right: 0.5rem;
+  }
+
+  .save-icon:hover {
+    color: var(--clr-secondary-5);
+    cursor: pointer;
+  }
+
   .title {
     background-color: var(--clr-primary-10);
     padding-top: 5px;
@@ -279,11 +342,23 @@ const Wrapper = styled.section`
     cursor: pointer;
   }
 
+  .trash-icon {
+    border: none;
+    font-size: large;
+    color: var(--clr-primary-4);
+    margin-right: 0.5rem;
+  }
+
+  .trash-icon :hover {
+    color: var(--clr-primary-5);
+  }
+
   @media (max-width: 1092px) {
     .excuse {
       display: flex;
       flex-direction: column;
-      justify-content: start;
+      justify-content: center;
+      align-items: center;
     }
   }
 `;

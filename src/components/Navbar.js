@@ -13,7 +13,7 @@ const Navbar = () => {
           <h3>
             Excuse<span>Tracker</span>
           </h3>
-          <p className="slogan">Keep track of your alibies.</p>
+          <p className="slogan">Organize Your Alibies.</p>
         </a>
         {/* </div> */}
         <div className="nav">

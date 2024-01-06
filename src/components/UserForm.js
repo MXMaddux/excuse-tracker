@@ -17,6 +17,12 @@ const UserForm = () => {
 
   const { user } = useContext(AuthContext);
 
+  // Function to format the date from YYYY-MM-DD to MM-DD-YYYY
+  const formatDate = (dateStr) => {
+    const [year, month, day] = dateStr.split("-");
+    return `${month}-${day}-${year}`;
+  };
+
   if (!user) {
     return (
       <Wrapper>
@@ -57,7 +63,7 @@ const UserForm = () => {
             <label>Date Used:</label>
             <input
               type="date"
-              onChange={(e) => setDateUsed(e.target.value)}
+              onChange={(e) => setDateUsed(formatDate(e.target.value))}
               name="dateUsed"
             />
           </div>
