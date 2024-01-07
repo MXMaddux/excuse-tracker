@@ -204,6 +204,7 @@ const Wrapper = styled.section`
     height: 24px;
     padding: 2px;
     border-right: none;
+    padding: 8px;
   }
   .main {
     display: flex;
@@ -276,7 +277,8 @@ const Wrapper = styled.section`
     height: auto;
     /* margin: auto; */
     justify-content: center;
-    padding-bottom: 10px;
+    align-items: center;
+    padding-bottom: 20px;
   }
 
   @media (max-width: 1092px) {
