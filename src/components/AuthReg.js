@@ -43,7 +43,10 @@ export const AuthReg = () => {
                   type="password"
                   onChange={(e) => setPassword(e.target.value)}
                 />
-                <button type="submit"> Register </button>
+                <button className="btn-register" type="submit">
+                  {" "}
+                  Register{" "}
+                </button>
               </form>
               <div className="already-registered">
                 Already registered?{" "}
@@ -88,7 +91,7 @@ const Wrapper = styled.section`
   }
 
   .btn-register {
-    width: 5rem;
+    width: 100%;
     background-color: var(--clr-secondary-4);
     color: var(--clr-primary-10);
   }

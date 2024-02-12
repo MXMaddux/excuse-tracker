@@ -21,7 +21,6 @@ const SignIn = () => {
       />
     </div>
   );
-  return <div>SignUp</div>;
 };
 
 export default SignIn;

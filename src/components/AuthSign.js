@@ -120,12 +120,14 @@ const Wrapper = styled.section`
 
   .btn-sign-in {
     margin-bottom: 10px;
+    width: 100%;
   }
 
   .btn-google {
     background-color: var(--clr-secondary-5);
     color: white;
     font-weight: 400;
+    width: 100%;
   }
 
   .btn-google:hover {
@@ -134,7 +136,8 @@ const Wrapper = styled.section`
 
   .container {
     display: flex;
-    width: 800px;
+    flex-direction: column;
+    width: 50%;
     height: 100vh;
     margin: auto;
     justify-content: center;
@@ -147,6 +150,11 @@ const Wrapper = styled.section`
     margin-top: 5px;
   }
 
+  form {
+    display: flex;
+    flex-direction: column;
+  }
+
   h4 {
     color: var(--clr-primary-2);
   }
@@ -154,21 +162,15 @@ const Wrapper = styled.section`
   input {
     margin-bottom: 10px;
     padding: 3px;
-    width: 200px;
+    width: 100%;
     height: 20px;
-  }
-
-  .register {
-    display: flex;
-    flex-direction: column;
-    width: 250px;
-    margin-bottom: 20px;
   }
 
   .sign-in {
     display: flex;
     flex-direction: column;
     width: 250px;
+    margin-bottom: 20px;
   }
 
   @media (max-width: 697px) {
